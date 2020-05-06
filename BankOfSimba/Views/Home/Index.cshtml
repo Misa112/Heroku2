@@ -1,0 +1,76 @@
+﻿@using BankOfSimba.Models
+@model List<BankAccount>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Bank of Simba</title>
+</head>
+<body>
+    @{ var index = 1;}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Balance</th>
+                <th>Animal type</th>
+                <th>Status</th>
+                <th>Character</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td> @index.</td>
+                    <td> @item.Name</td>
+                    <td> @item.Balance.ToString("0.00 zebra")</td>
+                    <td> @item.AnimalType</td>
+                    <td>
+                        @if (item.IsKing)
+                        {
+                            <p style="color:goldenrod">King</p>
+                        }
+                        else
+                        {
+                            <p>vassal</p>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsGood)
+                        {
+                            <p>Good one</p>
+                        }
+                        else
+                        {
+                            <p>Bad guy</p>
+                        }
+                    </td>
+                </tr>
+                index++;
+            }
+        </tbody>
+    </table>
+
+    @using (Html.BeginForm("RaiseBalance", "Home", FormMethod.Post))
+    {
+        <input type="submit" value="Magic button">
+    }
+
+    @using (Html.BeginForm("AddNewAccount", "Home", FormMethod.Post))
+    {
+        <input type="text" name="name" />
+        <input type="number" name="balance" />
+        <input type="text" name="animalType" />
+        <select name="isKing">
+            <option value="true">King</option>
+            <option value="false">vassal</option>
+        </select>
+        <select name="isGood">
+            <option value="true">Good one</option>
+            <option value="false">Bad guy</option>
+        </select>
+        <input type="submit" name="submit"/>
+    }
+</body>
+</html>
